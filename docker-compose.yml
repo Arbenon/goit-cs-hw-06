@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: mongodb
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongodata:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: web
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+
+  socket-server:
+    build:
+      context: .
+      dockerfile: Dockerfile.socket
+    container_name: socket-server
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongodb
+
+volumes:
+  mongodata:
