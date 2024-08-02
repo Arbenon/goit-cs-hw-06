@@ -36,7 +36,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
 
             try:
                 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-                    s.connect(('localhost', 5000))
+                    s.connect(('socket-server', 5000))
                     s.sendall(json.dumps(message_data).encode('utf-8'))
                 self.send_response(200)
                 self.end_headers()

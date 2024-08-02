@@ -6,7 +6,7 @@ from pymongo.errors import ServerSelectionTimeoutError
 
 # Підключення до MongoDB
 try:
-    client = MongoClient('localhost', 27017)  # 'mongodb' якщо використовується Docker Compose
+    client = MongoClient('mongodb', 27017)  # 'mongodb' якщо використовується Docker Compose
     db = client.webapp
     collection = db.messages
     print("Connected to MongoDB")
@@ -16,7 +16,7 @@ except ServerSelectionTimeoutError as e:
 
 # Налаштування TCP серверу
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server_socket.bind(('0.0.0.0', 5000))  # Використовуємо '0.0.0.0' для прослуховування всіх інтерфейсів
+server_socket.bind(('0.0.0.0', 5000))
 server_socket.listen(5)
 print("Socket server listening on port 5000...")
 
